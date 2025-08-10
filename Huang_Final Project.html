@@ -1,0 +1,260 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Understanding the Self — Interactive Game</title>
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --card:#121212;
+      --gold:#ffd700;
+      --muted:#dcdcdc;
+      --accent:#1db7d7;
+      --glass: rgba(255,255,255,0.03);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#050505, #0e0e0e);color:var(--muted)}
+    header{padding:24px 32px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#ffb84d);display:flex;align-items:center;justify-content:center;color:#111;font-weight:700}
+    h1{margin:0;font-size:20px;color:var(--gold)}
+    .container{padding:32px;max-width:1100px;margin:24px auto}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden;min-height:180px}
+    .card h2{margin:0 0 8px 0;color:var(--gold);font-size:18px}
+    .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .flip{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;padding:12px;cursor:pointer;min-height:120px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+    .flip .front{font-weight:700;font-size:16px;display:flex;align-items:center;gap:10px}
+    .icon{width:40px;height:40px;flex-shrink:0;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04)}
+    .flip .back{display:none;margin-top:6px;font-size:14px;color:var(--muted);line-height:1.35}
+    .flip.revealed{background:linear-gradient(180deg, rgba(255,215,0,0.04), rgba(255,215,0,0.01));border:1px solid rgba(255,215,0,0.06)}
+    .flip.revealed .back{display:block}
+    textarea{width:100%;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;color:var(--muted);min-height:140px;resize:vertical}
+    .small-note{font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:8px 12px;border-radius:8px;cursor:pointer}
+    button.primary{background:var(--gold);color:#111;border:none}
+    footer{padding:20px 32px;text-align:center;color:rgba(255,255,255,0.4);font-size:13px;margin-top:24px}
+    /* responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .cards-grid{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">US</div>
+    <div>
+      <h1>Understanding the Self — Interactive Game</h1>
+      <div style="font-size:13px;color:rgba(255,255,255,0.45)">A creative digital project — explore your selves &amp; reflections</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card" id="selfProfiles">
+        <h2>Self-Profiles (Click to reveal)</h2>
+        <div class="cards-grid" id="profilesGrid">
+          <!-- profile flip cards injected here -->
+        <div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 7a3 3 0 100 6 3 3 0 000-6zm-6 10a6 6 0 0112 0" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Physical Self</div></div><div class="back">My physical self is the vessel that carries me through life. I try to keep my body healthy and active so I have energy for what matters.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 21s-6-4.35-6-8.5A4.5 4.5 0 0110.5 8 5.5 5.5 0 0118 13.5C18 16.65 12 21 12 21z" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Sexual Self</div></div><div class="back">I believe in respect, consent, and mature relationships. My sexual self is about intimacy, trust, and emotional safety.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M3 7h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Material Self</div></div><div class="back">My material self is reflected in the things I value and care for; they show my tastes but don't define my worth.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M8 7h8v10H8z" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Digital Self</div></div><div class="back">My digital self is my online presence — I use it to express ideas, connect, and stay authentic.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 21s-6.5-4-8-7a5 5 0 019-5 5 5 0 019 5c-1.5 3-8 7-8 7z" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Emotional Self</div></div><div class="back">I feel deeply and work on expressing emotions honestly while learning to regulate them.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 2v6m6 8a6 6 0 10-12 0" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Intellectual Self</div></div><div class="back">I love learning; intelligence for me is curiosity, problem-solving, and growth.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 3l3 6h-6l3-6zm0 6v12" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Political Self</div></div><div class="back">I stay informed and believe in respectful civic engagement and fairness.</div></div><div class="flip revealed"><div class="front"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)"/><path d="M12 2c2 3 6 3 8 6-2 3-6 3-8 8-2-5-6-5-8-8 2-3 6-3 8-6z" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>Spiritual Self</div></div><div class="back">My spiritual self connects me to values bigger than myself: kindness, purpose, and compassion.</div></div></div>
+        <div class="small-note">Tap each card to reveal a short self-description. Use these as your project content or expand them. Small icons are included as placeholders — replace with photos if you like.</div>
+      </section>
+
+      <section class="card" id="reflection">
+        <h2>REFLECTION</h2>
+        <div>
+          <div style="font-weight:700;margin-bottom:8px">a. What realizations did you have throughout the course? What have you learned?</div>
+          <textarea id="reflectionA" placeholder="Write your answer for (a) here...">Throughout this course, I realized that understanding myself is a lifelong process. I learned that the “self” is not just one thing — it’s made up of many parts, shaped by my experiences, beliefs, and choices. I discovered that self-awareness helps me grow, not only in school but also in relationships and decision-making.
+</textarea>
+          <div style="height:12px"></div>
+          <div style="font-weight:700;margin-bottom:8px">b. How can you apply what you have learned?</div>
+          <textarea id="reflectionB" placeholder="Write your answer for (b) here...">I can apply these lessons by practicing mindfulness, taking care of my mental and physical health, and being more intentional in my actions. I will keep reflecting on my strengths and weaknesses, and make choices that align with my values.
+</textarea>
+          <div class="small-note">Your reflections are auto-saved as you type and will be restored when you reopen this page.</div>
+        </div>
+      </section>
+
+      <section class="card" id="letter">
+        <h2>Letter to Future Self</h2>
+        <div>
+          <textarea id="letterText" rows="7" placeholder="Write a short letter to your future self...">Dear Future Me,
+
+I hope by the time you read this, you’re still living a life you’re proud of. I hope you’ve achieved some of the dreams you have now, but also that you’ve learned to let go of things that no longer serve you. Remember the lessons you learned about self-love, patience, gratitude and kindness — they will always be your anchor.
+
+If life gets hard, pause and breathe. You’ve overcome challenges before, and you can do it again. Stay humble, stay curious, and never lose your empathy. I hope you’re surrounded by people who inspire you, and I hope you’ve become someone who inspires others too.
+
+With love,
+Your Past Self</textarea>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="autoFill">Auto-fill from reflections</button>
+            <button id="saveLetter" class="primary">Save Letter (local)</button>
+          </div>
+          <div id="saveMsg" class="small-note">Reflection (b) auto-saved.</div>
+        </div>
+      </section>
+
+      <section class="card" id="summary">
+        <h2>Project Summary &amp; Download</h2>
+        <p style="color:var(--muted)">When you're happy with your responses, export a packaged HTML you can submit or open offline.</p>
+        <div style="margin-top:12px">
+          <button id="exportBtn" class="primary">Export Package (HTML)</button>
+          <button id="resetAll">Reset Game</button>
+        </div>
+        <div id="exportMsg" class="small-note"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Made for "Understanding the Self" — Customize content and images before submission.</footer>
+
+<script>
+const profiles = {
+  "Physical Self": {
+    "text": "My physical self is the vessel that carries me through life. I try to keep my body healthy and active so I have energy for what matters.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 7a3 3 0 100 6 3 3 0 000-6zm-6 10a6 6 0 0112 0' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Sexual Self": {
+    "text": "I believe in respect, consent, and mature relationships. My sexual self is about intimacy, trust, and emotional safety.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 21s-6-4.35-6-8.5A4.5 4.5 0 0110.5 8 5.5 5.5 0 0118 13.5C18 16.65 12 21 12 21z' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Material Self": {
+    "text": "My material self is reflected in the things I value and care for; they show my tastes but don't define my worth.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M3 7h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Digital Self": {
+    "text": "My digital self is my online presence — I use it to express ideas, connect, and stay authentic.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M8 7h8v10H8z' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Emotional Self": {
+    "text": "I feel deeply and work on expressing emotions honestly while learning to regulate them.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 21s-6.5-4-8-7a5 5 0 019-5 5 5 0 019 5c-1.5 3-8 7-8 7z' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Intellectual Self": {
+    "text": "I love learning; intelligence for me is curiosity, problem-solving, and growth.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 2v6m6 8a6 6 0 10-12 0' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Political Self": {
+    "text": "I stay informed and believe in respectful civic engagement and fairness.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 3l3 6h-6l3-6zm0 6v12' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  },
+  "Spiritual Self": {
+    "text": "My spiritual self connects me to values bigger than myself: kindness, purpose, and compassion.",
+    "svg": "&lt;svg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'&gt;&lt;rect x='3' y='3' width='18' height='18' rx='3' fill='rgba(255,255,255,0.06)'/&gt;&lt;path d='M12 2c2 3 6 3 8 6-2 3-6 3-8 8-2-5-6-5-8-8 2-3 6-3 8-6z' stroke='white' stroke-opacity='0.9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/&gt;&lt;/svg&gt;"
+  }
+};
+
+// create profile cards
+const grid = document.getElementById('profilesGrid');
+Object.keys(profiles).forEach((k)=&gt;{
+  const item = profiles[k];
+  const el = document.createElement('div');
+  el.className = 'flip';
+  el.innerHTML = `&lt;div class="front"&gt;&lt;div class="icon"&gt;${item.svg}&lt;/div&gt;&lt;div&gt;${k}&lt;/div&gt;&lt;/div&gt;&lt;div class="back"&gt;${item.text}&lt;/div&gt;`;
+  el.addEventListener('click', ()=&gt; el.classList.toggle('revealed'));
+  grid.appendChild(el);
+});
+
+// Auto-save for reflections and letter
+const saveDebounce = (fn, wait=600) =&gt; {
+  let t;
+  return (...args)=&gt;{
+    clearTimeout(t);
+    t = setTimeout(()=&gt; fn(...args), wait);
+  };
+};
+
+const saveToLocal = (key, value) =&gt; {
+  try{ localStorage.setItem(key, value); } catch(e){ console.warn('Storage error', e); }
+};
+
+const loadFromLocal = (key) =&gt; {
+  try{ return localStorage.getItem(key) || ''; } catch(e){ return ''; }
+};
+
+// Elements
+const rA = document.getElementById('reflectionA');
+const rB = document.getElementById('reflectionB');
+const letter = document.getElementById('letterText');
+const saveMsg = document.getElementById('saveMsg');
+const exportMsg = document.getElementById('exportMsg');
+
+// load saved content
+rA.value = loadFromLocal('us_reflection_a');
+rB.value = loadFromLocal('us_reflection_b');
+letter.value = loadFromLocal('us_letter');
+
+// auto-save handlers (debounced)
+const saveReflectionA = saveDebounce(()=&gt; { saveToLocal('us_reflection_a', rA.value); });
+const saveReflectionB = saveDebounce(()=&gt; { saveToLocal('us_reflection_b', rB.value); });
+const saveLetter = saveDebounce(()=&gt; { saveToLocal('us_letter', letter.value); });
+
+rA.addEventListener('input', ()=&gt;{ saveReflectionA(); saveMsg.textContent='Reflection (a) auto-saved.'; });
+rB.addEventListener('input', ()=&gt;{ saveReflectionB(); saveMsg.textContent='Reflection (b) auto-saved.'; });
+letter.addEventListener('input', ()=&gt;{ saveLetter(); saveMsg.textContent='Letter auto-saved.'; });
+
+// auto-fill letter from reflections
+document.getElementById('autoFill').addEventListener('click', ()=&gt;{
+  const a = rA.value.trim();
+  const b = rB.value.trim();
+  let out = "Dear Future Me,\n\n";
+  if(a) out += "A few things I learned: " + a + "\n\n";
+  if(b) out += "How I plan to apply them: " + b + "\n\n";
+  out += "Stay kind and keep growing.\n\n- Past Me";
+  letter.value = out;
+  saveToLocal('us_letter', out);
+  saveMsg.textContent = 'Letter auto-filled and saved.';
+});
+
+// Save letter (explicit)
+document.getElementById('saveLetter').addEventListener('click', ()=&gt;{
+  saveToLocal('us_letter', letter.value);
+  saveMsg.textContent = 'Letter saved locally.';
+});
+
+// Export as single HTML file (snapshot)
+document.getElementById('exportBtn').addEventListener('click', ()=&gt;{
+  // Build a snapshot: clone document and embed current values into textarea fields
+  const clone = document.documentElement.cloneNode(true);
+  // set current textarea values into the cloned HTML before serializing
+  const taA = clone.querySelector('#reflectionA');
+  const taB = clone.querySelector('#reflectionB');
+  const taL = clone.querySelector('#letterText');
+  if(taA) taA.textContent = rA.value;
+  if(taB) taB.textContent = rB.value;
+  if(taL) taL.textContent = letter.value;
+  // serialize
+  const serializer = new XMLSerializer();
+  let htmlText = '&lt;!doctype html&gt;\n' + serializer.serializeToString(clone);
+  // create blob
+  const blob = new Blob([htmlText], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Understanding_the_Self_Game_Completed.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  exportMsg.textContent = 'Export created and downloaded. Check your browser downloads.';
+});
+
+// Reset game
+document.getElementById('resetAll').addEventListener('click', ()=&gt;{
+  if(confirm('Reset the game? This will clear saved reflections and letter.')){
+    rA.value = ''; rB.value = ''; letter.value = '';
+    saveToLocal('us_reflection_a', ''); saveToLocal('us_reflection_b',''); saveToLocal('us_letter','');
+    saveMsg.textContent = 'Cleared.';
+    exportMsg.textContent = '';
+  }
+});
+
+// restore autosave message on load
+window.addEventListener('load', ()=&gt;{
+  const saved = loadFromLocal('us_letter');
+  if(saved) saveMsg.textContent = 'Loaded saved content.';
+});
+</script>
+
+
+</body></html>
